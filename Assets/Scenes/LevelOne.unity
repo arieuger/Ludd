@@ -10260,7 +10260,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 150
   smoothActivated: 0
-  movementSmooth: 0
+  movementSmooth: 0.225
   jumpForce: 350
   groundLayers:
     serializedVersion: 2
