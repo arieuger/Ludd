@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour {
 
         if (isGrounded && jump) {
             isGrounded = false;
-            rb.AddForce(new Vector2(0f, jumpForce));
+            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
             // jumpEffect.transform.position = new Vector3(transform.position.x, transform.position.y - 0.487f, transform.position.z);
             jumpEffect.Play();
         }
