@@ -40,6 +40,7 @@ public class PlayerMovement : MonoBehaviour {
         get { return jump; }
         set { jump = value; }
     }
+    private bool doubleJump;
 
     // Partículas
     [SerializeField] private ParticleSystem footstepsEffect;
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 targetVelocity = new Vector2(moving, rb.velocity.y);
         rb.velocity = smoothActivated ? Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmooth) : targetVelocity;
 
-        if (rb.velocity.y < 0) {
+        if (rb.velocity.y < -0.1f) {
             rb.gravityScale = fallGravityScale;
         } else {
             rb.gravityScale = defaultGravityScale;
@@ -101,11 +102,17 @@ public class PlayerMovement : MonoBehaviour {
             footEmission.rateOverTime = 0f;
         }
 
-        if (isGrounded && jump) {
-            isGrounded = false;
-            rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-            // jumpEffect.transform.position = new Vector3(transform.position.x, transform.position.y - 0.487f, transform.position.z);
-            jumpEffect.Play();
+        if (jump) {
+            if (isGrounded) {
+                isGrounded = false;
+                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                jumpEffect.Play();
+                doubleJump = true;
+            } else if (doubleJump) {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                animator.SetTrigger("doubleJump");
+                doubleJump = false;
+            }            
         }
 
         jump = false;
