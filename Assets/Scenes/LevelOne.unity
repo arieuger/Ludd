@@ -11284,7 +11284,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 2.5
+  m_GravityScale: 2
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -11311,6 +11311,7 @@ MonoBehaviour:
     m_Bits: 64
   groundController: {fileID: 2032765478}
   dimensionBox: {x: 0.5, y: 0.08, z: 0}
+  fallGravityScale: 3
   footstepsEffect: {fileID: 576697756}
   jumpEffect: {fileID: 542690090}
 --- !u!1 &2032765477

@@ -27,6 +27,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] private LayerMask groundLayers;
     [SerializeField] private Transform groundController;
     [SerializeField] private Vector3 dimensionBox;
+    [SerializeField] private float fallGravityScale;
+    
+    private float defaultGravityScale;
     private bool isGrounded;
     public bool IsGrounded {
         get { return isGrounded; }
@@ -61,6 +64,8 @@ public class PlayerMovement : MonoBehaviour {
         
         footEmission = footstepsEffect.emission;
         initialFootEmissionROT = footEmission.rateOverTime;
+
+        defaultGravityScale = rb.gravityScale;
     }
 
     // Update is called once per frame
@@ -79,6 +84,12 @@ public class PlayerMovement : MonoBehaviour {
     private void Move(float moving) {
         Vector3 targetVelocity = new Vector2(moving, rb.velocity.y);
         rb.velocity = smoothActivated ? Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmooth) : targetVelocity;
+
+        if (rb.velocity.y < 0) {
+            rb.gravityScale = fallGravityScale;
+        } else {
+            rb.gravityScale = defaultGravityScale;
+        }
 
         if (moving > 0 && !lookingRight) Turn();
         else if (moving < 0 && lookingRight) Turn();
