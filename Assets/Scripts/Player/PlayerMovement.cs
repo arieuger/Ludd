@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
 
     private void FixedUpdate() {
         isGrounded = Physics2D.OverlapBox(groundController.position, dimensionBox, 0f, groundLayers);
-        Move(horizontalMovement * Time.fixedDeltaTime);     
+        Move(horizontalMovement * Time.fixedDeltaTime); 
     }
 
     private void Move(float moving) {
