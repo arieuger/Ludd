@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour {
     
@@ -49,6 +48,7 @@ public class PlayerMovement : MonoBehaviour {
     private ParticleSystem.MinMaxCurve initialFootEmissionROT;
 
     // Cámara e animacións
+    private CinemachineVirtualCamera vCam;
     private Animator animator;
 
     // Singleton
@@ -62,10 +62,9 @@ public class PlayerMovement : MonoBehaviour {
     void Start() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        
+        vCam = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
         footEmission = footstepsEffect.emission;
         initialFootEmissionROT = footEmission.rateOverTime;
-
         defaultGravityScale = rb.gravityScale;
     }
 
@@ -123,7 +122,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
-        // vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1f;
+        vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.x *= -1f;
     }
 
 
