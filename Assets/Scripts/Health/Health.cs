@@ -22,14 +22,23 @@ public class Health : MonoBehaviour {
 
     public void TakeDamage(float damage) {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
-
+        Debug.Log("Damage Taken");
         if (currentHealth > 0) {
             anim.SetTrigger("hurt");
-            StartCoroutine(Invunerability());
+            // StartCoroutine(Invunerability());
         }
         else if (!dead) {
             anim.SetTrigger("die");
-           // GetComponent<PlayerMovement>().enabled = false;
+
+            if (GetComponent<PlayerMovement>() != null)
+                GetComponent<PlayerMovement>().enabled = false;
+
+            if (GetComponent<EnemyAttack>() != null)
+                GetComponent<EnemyAttack>().enabled = false;
+
+            if (GetComponentInParent<EnemyPatrol>() != null)
+                GetComponentInParent<EnemyPatrol>().enabled = false;
+            
             dead = true;
         }
     }
