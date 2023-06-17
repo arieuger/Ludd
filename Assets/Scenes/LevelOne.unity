@@ -11664,7 +11664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 487756287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.54, y: 15.7, z: -10}
+  m_LocalPosition: {x: 26.9, y: 15.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11784,7 +11784,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 24.54, y: 15.7, z: -10}
+  m_LocalPosition: {x: 26.9, y: 15.9, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21661,7 +21661,9 @@ GameObject:
   - component: {fileID: 1064697724}
   - component: {fileID: 1064697728}
   - component: {fileID: 1064697727}
-  m_Layer: 0
+  - component: {fileID: 1064697729}
+  - component: {fileID: 1064697730}
+  m_Layer: 8
   m_Name: Welder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21749,7 +21751,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064697723}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.37, y: 12.53, z: 0}
+  m_LocalPosition: {x: 14.03, y: 12.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21803,6 +21805,46 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1064697729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064697723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc2d40737052d2b0ba562f8d4a1d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  invulnerabilityTime: 0.5
+  selfMask:
+    serializedVersion: 2
+    m_Bits: 256
+  rivalMask:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1064697730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1064697723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14a5dbd8be03e3d7bb89b4aed990507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackCooldown: 2.5
+  damage: 2
+  range: 4.2
+  colliderDistance: 1.7
+  boxCollider: {fileID: 1064697727}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &1285831302
 GameObject:
   m_ObjectHideFlags: 0
@@ -46635,7 +46677,9 @@ GameObject:
   - component: {fileID: 1944845476}
   - component: {fileID: 1944845477}
   - component: {fileID: 1944845478}
-  m_Layer: 0
+  - component: {fileID: 1944845479}
+  - component: {fileID: 1944845480}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46702,7 +46746,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944845471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.44, y: 12.2, z: 0}
+  m_LocalPosition: {x: 21.8, y: 12.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46816,6 +46860,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22270e650f2cbeb8895e586965dda5b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1944845479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944845471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad91a13c112c63ebbb50e818c1bc610f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1944845480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944845471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc2d40737052d2b0ba562f8d4a1d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 3
+  invulnerabilityTime: 50
+  selfMask:
+    serializedVersion: 2
+    m_Bits: 128
+  rivalMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &2032765477
 GameObject:
   m_ObjectHideFlags: 0
