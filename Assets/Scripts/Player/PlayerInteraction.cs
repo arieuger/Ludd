@@ -1,30 +1,25 @@
 using UnityEngine;
-using System.Collections;
-using UnityEngine.Rendering.Universal;
 
 public class PlayerInteraction : MonoBehaviour {
 
-    private float maxIntensity;
-    private float minIntensity = 1.7f;
+    private Data dataPlace;
 
-    void OnTriggerEnter2D(Collider2D other) {
+    private void Update() {
+        if (Input.GetButtonDown("Interaction")) {
+            if (dataPlace != null)
+                dataPlace.DeactivateDataPoint();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("DataPlace")) {
-            other.GetComponent<Animator>().SetTrigger("Down");
-            Light2D lightComponent = other.GetComponentInChildren<Light2D>();
-            maxIntensity = lightComponent.intensity;
-            StartCoroutine(Twinkle(lightComponent));
+            dataPlace = other.transform.GetComponent<Data>();
         }
     }
 
-    private IEnumerator Twinkle(Light2D lightComponent) {
-        for (int i = 0; i < Random.Range(4,10); i++) {
-            lightComponent.intensity = Random.Range(minIntensity, minIntensity + 0.3f);
-            yield return new WaitForSeconds(Random.Range(0.01f, 0.2f));
-
-            lightComponent.intensity = maxIntensity;
-            yield return new WaitForSeconds(Random.Range(0.05f, 0.35f));
+    private void OnTriggerExit2D(Collider2D other) {
+        if (other.CompareTag("DataPlace")) {
+            dataPlace = null;
         }
-        lightComponent.enabled = false;
     }
-
 }

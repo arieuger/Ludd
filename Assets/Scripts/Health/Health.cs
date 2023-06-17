@@ -33,11 +33,10 @@ public class Health : MonoBehaviour {
             if (GetComponent<PlayerMovement>() != null)
                 GetComponent<PlayerMovement>().enabled = false;
 
-            if (GetComponent<EnemyAttack>() != null)
+            if (GetComponent<EnemyAttack>() != null) {
                 GetComponent<EnemyAttack>().enabled = false;
-
-            if (GetComponentInParent<EnemyPatrol>() != null)
-                GetComponentInParent<EnemyPatrol>().enabled = false;
+                GetComponentInParent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+            }                
             
             dead = true;
         }

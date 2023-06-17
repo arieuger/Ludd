@@ -3,6 +3,7 @@ using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour {
     
+    [Header ("Movement and velocity")]
     // Movemento e velocidade
     [SerializeField] private float movementSpeed;
     [SerializeField] private bool smoothActivated = false;
@@ -21,6 +22,7 @@ public class PlayerMovement : MonoBehaviour {
         set { isRunning = value; } 
     } 
 
+    [Header ("Jump and groundcheck")]
     // Salto e suelo
     [SerializeField] private float jumpForce;
     [SerializeField] private LayerMask groundLayers;
@@ -41,6 +43,7 @@ public class PlayerMovement : MonoBehaviour {
     }
     private bool doubleJump;
 
+    [Header ("Particle Effects")]
     // Partículas
     [SerializeField] private ParticleSystem footstepsEffect;
     [SerializeField] private ParticleSystem jumpEffect;

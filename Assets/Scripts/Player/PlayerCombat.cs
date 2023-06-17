@@ -6,6 +6,7 @@ public class PlayerCombat : MonoBehaviour {
 
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackRange;
+    [SerializeField] private float damagePoints;
     [SerializeField] private LayerMask enemyLayers;
 
     private Animator animator;
@@ -24,7 +25,7 @@ public class PlayerCombat : MonoBehaviour {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
         foreach (Collider2D enemy in hitEnemies) {
-            enemy.transform.GetComponent<Health>().TakeDamage(1f);
+            enemy.transform.GetComponent<Health>().TakeDamage(damagePoints);
         }
     }
 
