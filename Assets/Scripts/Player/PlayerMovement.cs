@@ -87,8 +87,10 @@ public class PlayerMovement : MonoBehaviour {
 
         if (rb.velocity.y < -0.1f) {
             rb.gravityScale = fallGravityScale;
+            vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y *= -1f;
         } else {
             rb.gravityScale = defaultGravityScale;
+            vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = Mathf.Abs(vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y);
         }
 
         if (moving > 0 && !lookingRight) Turn();
