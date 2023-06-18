@@ -65,6 +65,8 @@ public class PlayerMovement : MonoBehaviour {
     // Conciencia
     private Conscience conscience;
     private bool conscienceAllowsMovement = true;
+    private Material mat;
+    private Color starterLightColor;
 
 
     void Start() {
@@ -74,8 +76,10 @@ public class PlayerMovement : MonoBehaviour {
         footEmission = footstepsEffect.emission;
         initialFootEmissionROT = footEmission.rateOverTime;
         defaultGravityScale = rb.gravityScale;
+        mat = GetComponent<SpriteRenderer>().material;
+        starterLightColor = mat.GetColor("_GlowColor");
         conscience = GetComponent<Conscience>();
-        StartCoroutine(TestConscience());
+        StartCoroutine(CheckConscience());
     }
 
     void Update() {
@@ -138,12 +142,9 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private void UpdateAnimations() {
-        // if (conscienceAllowsMovement || (!conscienceAllowsMovement && !isGrounded)) {
-            animator.SetFloat("horizontalMovement", Mathf.Abs(horizontalMovement));
-            animator.SetFloat("verticalMovement", isGrounded ? 0 : rb.velocity.y);
-            animator.SetBool("isGrounded", isGrounded);
-        // }
-        
+        animator.SetFloat("horizontalMovement", Mathf.Abs(horizontalMovement));
+        animator.SetFloat("verticalMovement", isGrounded ? 0 : rb.velocity.y);
+        animator.SetBool("isGrounded", isGrounded);
     }
 
     private void CheckGravity() {
@@ -157,12 +158,15 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    private IEnumerator TestConscience() {
+    private IEnumerator CheckConscience() {
         while (true) {
             conscienceAllowsMovement = Random.value + 0.1f > conscience.currentConscience / 10;
-            if (!conscienceAllowsMovement) {}
-                // rb.velocity = Vector2.zero;
+            if (!conscienceAllowsMovement)
+                mat.SetColor("_GlowColor", Color.red * 4);
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
             
+            conscienceAllowsMovement = true;
+            mat.SetColor("_GlowColor", starterLightColor);
             yield return new WaitForSeconds(Random.Range(1f, 2f));
         }
     }
