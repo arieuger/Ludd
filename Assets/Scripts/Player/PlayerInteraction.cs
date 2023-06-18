@@ -7,11 +7,12 @@ public class PlayerInteraction : MonoBehaviour {
 
     [SerializeField] private int targetDataSaves;
     [SerializeField] private TMP_Text textTargetDatasabes;
-    private int currentDataSaves = 0;
+    public int currentDataSaves { get; private set; }
     private Data dataPlace;
 
 
     private void Start() {
+        currentDataSaves = 0;
         textTargetDatasabes.text = ($"{currentDataSaves}/{targetDataSaves}");
     }
 
