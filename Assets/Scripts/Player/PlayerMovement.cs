@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
     
@@ -61,6 +62,10 @@ public class PlayerMovement : MonoBehaviour {
         else Instance = this;
     }
 
+    // Conciencia
+    private Conscience conscience;
+    private bool conscienceAllowsMovement = true;
+
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -69,54 +74,55 @@ public class PlayerMovement : MonoBehaviour {
         footEmission = footstepsEffect.emission;
         initialFootEmissionROT = footEmission.rateOverTime;
         defaultGravityScale = rb.gravityScale;
+        conscience = GetComponent<Conscience>();
+        StartCoroutine(TestConscience());
     }
 
     void Update() {
-        horizontalMovement = Input.GetAxis("Horizontal") * movementSpeed * (isRunning ? 1.5f : 1f);
+        horizontalMovement = Input.GetAxis("Horizontal") * movementSpeed * (isRunning ? 1.5f : 1f) * (conscienceAllowsMovement ? 1f : 0);
         if (Input.GetButtonDown("Jump")) jump = true;
-
         UpdateAnimations();
     }
 
     private void FixedUpdate() {
         isGrounded = Physics2D.OverlapBox(groundController.position, dimensionBox, 0f, groundLayers);
         Move(horizontalMovement * Time.fixedDeltaTime); 
+        CheckGravity();
     }
 
     private void Move(float moving) {
-        Vector3 targetVelocity = new Vector2(moving, rb.velocity.y);
-        rb.velocity = smoothActivated ? Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmooth) : targetVelocity;
+        if (conscienceAllowsMovement) {
+            Vector3 targetVelocity = new Vector2(moving, rb.velocity.y);
+            rb.velocity = smoothActivated ? Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmooth) : targetVelocity;
 
-        if (rb.velocity.y < -0.1f) {
-            rb.gravityScale = fallGravityScale;
-            if (vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y > 0f)
-                vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y *= -1f;
-        } else {
-            rb.gravityScale = defaultGravityScale;
-            vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = Mathf.Abs(vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y);
-        }
 
-        if (moving > 0 && !lookingRight) Turn();
-        else if (moving < 0 && lookingRight) Turn();
+            if (moving > 0 && !lookingRight) Turn();
+            else if (moving < 0 && lookingRight) Turn();
 
-        // efectos de partículas
-        if (moving != 0 && isGrounded) {
-            footEmission.rateOverTime = initialFootEmissionROT;
+            // efectos de partículas
+            if (moving != 0 && isGrounded) {
+                footEmission.rateOverTime = initialFootEmissionROT;
+            } else {
+                footEmission.rateOverTime = 0f;
+            }
+
+            if (jump) {
+                if (isGrounded) {
+                    isGrounded = false;
+                    rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
+                    jumpEffect.Play();
+                    doubleJump = true;
+                } else if (doubleJump) {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                    animator.SetTrigger("doubleJump");
+                    doubleJump = false;
+                }            
+            }
         } else {
             footEmission.rateOverTime = 0f;
-        }
-
-        if (jump) {
             if (isGrounded) {
-                isGrounded = false;
-                rb.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);
-                jumpEffect.Play();
-                doubleJump = true;
-            } else if (doubleJump) {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-                animator.SetTrigger("doubleJump");
-                doubleJump = false;
-            }            
+                rb.velocity = Vector2.zero;
+            }
         }
 
         jump = false;
@@ -132,9 +138,33 @@ public class PlayerMovement : MonoBehaviour {
 
 
     private void UpdateAnimations() {
-        animator.SetFloat("horizontalMovement", Mathf.Abs(horizontalMovement));
-        animator.SetFloat("verticalMovement", isGrounded ? 0 : rb.velocity.y);
-        animator.SetBool("isGrounded", isGrounded);
+        // if (conscienceAllowsMovement || (!conscienceAllowsMovement && !isGrounded)) {
+            animator.SetFloat("horizontalMovement", Mathf.Abs(horizontalMovement));
+            animator.SetFloat("verticalMovement", isGrounded ? 0 : rb.velocity.y);
+            animator.SetBool("isGrounded", isGrounded);
+        // }
+        
+    }
+
+    private void CheckGravity() {
+        if (rb.velocity.y < -0.1f) {
+            rb.gravityScale = fallGravityScale;
+            if (vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y > 0f)
+                vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y *= -1f;
+        } else {
+            rb.gravityScale = defaultGravityScale;
+            vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = Mathf.Abs(vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y);
+        }
+    }
+
+    private IEnumerator TestConscience() {
+        while (true) {
+            conscienceAllowsMovement = Random.value + 0.1f > conscience.currentConscience / 10;
+            if (!conscienceAllowsMovement) {}
+                // rb.velocity = Vector2.zero;
+            
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
+        }
     }
 
     private void OnDrawGizmos() {

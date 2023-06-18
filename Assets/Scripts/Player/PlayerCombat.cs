@@ -10,16 +10,21 @@ public class PlayerCombat : MonoBehaviour {
     [SerializeField] private LayerMask enemyLayers;
 
     private Animator animator;
+    private Conscience conscience;
     private bool damageToken = false;
 
     void Start() {
         animator = GetComponent<Animator>();
+        conscience = GetComponent<Conscience>();
     }
 
     void Update() {
-        Debug.Log(GetComponent<Health>().currentHealth);
         if (Input.GetButtonDown("Fire1")) {
-            animator.SetTrigger("attack");
+            bool conscienceAllowsMovement = Random.value > conscience.currentConscience / 10;
+            if (conscienceAllowsMovement)
+                animator.SetTrigger("attack");
+            else
+                Debug.Log("Ataque anulado");
         }
     }
 
@@ -28,6 +33,7 @@ public class PlayerCombat : MonoBehaviour {
 
         foreach (Collider2D enemy in hitEnemies) {
             enemy.transform.GetComponent<Health>().TakeDamage(damagePoints);
+            conscience.AddConscience(1f);
         }
     }
 
