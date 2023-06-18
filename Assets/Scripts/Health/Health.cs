@@ -11,8 +11,6 @@ public class Health : MonoBehaviour {
 
     [Header("Invulnerability")]
     [SerializeField] private float invulnerabilityTime;
-    [SerializeField] private LayerMask selfMask;
-    [SerializeField] private LayerMask rivalMask;
 
     private void Awake() {
         currentHealth = startingHealth;
@@ -22,10 +20,9 @@ public class Health : MonoBehaviour {
 
     public void TakeDamage(float damage) {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
-        Debug.Log("Damage Taken");
         if (currentHealth > 0) {
             anim.SetTrigger("hurt");
-            // StartCoroutine(Invunerability());
+            StartCoroutine(Invunerability());
         }
         else if (!dead) {
             anim.SetTrigger("die");
@@ -46,9 +43,9 @@ public class Health : MonoBehaviour {
     }
 
     private IEnumerator Invunerability() {
-        Physics2D.IgnoreLayerCollision((int) Mathf.Log(selfMask.value, 2), (int) Mathf.Log(selfMask.value, 2), true);
+        Physics2D.IgnoreLayerCollision(7,8, true);
         yield return new WaitForSeconds(invulnerabilityTime);
-        Physics2D.IgnoreLayerCollision((int) Mathf.Log(selfMask.value, 2), (int) Mathf.Log(selfMask.value, 2), false);
+        Physics2D.IgnoreLayerCollision(7,8, false);
     }
 
 }

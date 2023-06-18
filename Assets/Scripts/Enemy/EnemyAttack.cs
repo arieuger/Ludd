@@ -6,7 +6,7 @@ public class EnemyAttack : MonoBehaviour {
     
     [Header("Attack Parameters")]
     [SerializeField] private float attackCooldown;
-    [SerializeField] private int damage;
+    [SerializeField] private float damage;
     [SerializeField] private float range;
 
     [Header("Collider Parameters")]

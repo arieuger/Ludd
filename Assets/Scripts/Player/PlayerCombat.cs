@@ -10,12 +10,14 @@ public class PlayerCombat : MonoBehaviour {
     [SerializeField] private LayerMask enemyLayers;
 
     private Animator animator;
+    private bool damageToken = false;
 
     void Start() {
         animator = GetComponent<Animator>();
     }
 
     void Update() {
+        Debug.Log(GetComponent<Health>().currentHealth);
         if (Input.GetButtonDown("Fire1")) {
             animator.SetTrigger("attack");
         }
@@ -32,5 +34,18 @@ public class PlayerCombat : MonoBehaviour {
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Enemy") && !damageToken) {
+            GetComponent<Health>().TakeDamage(1f);
+            damageToken = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Enemy") && damageToken) {
+            damageToken = false;
+        }
     }
 }

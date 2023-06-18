@@ -5,12 +5,8 @@ using UnityEngine;
 public class MovingPlatformChild : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("a");
-        if (other.gameObject.CompareTag("Player")) {
-            Debug.Log("b");
+        if (other.gameObject.CompareTag("Player")) 
             other.gameObject.transform.SetParent(transform);
-        }
-            
     }
 
     void OnCollisionExit2D(Collision2D other) {

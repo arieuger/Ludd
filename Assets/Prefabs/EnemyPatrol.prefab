@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3620261780384017900}
   m_Layer: 8
   m_Name: Welder
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,12 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 3
   invulnerabilityTime: 0.5
-  selfMask:
-    serializedVersion: 2
-    m_Bits: 256
-  rivalMask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!114 &3620261780384017900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackCooldown: 2.5
-  damage: 2
+  damage: 1.5
   range: 4.2
   colliderDistance: 1.7
   boxCollider: {fileID: 3620261780384017681}
