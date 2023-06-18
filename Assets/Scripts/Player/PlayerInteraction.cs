@@ -1,13 +1,24 @@
 using UnityEngine;
+using TMPro;
 
 public class PlayerInteraction : MonoBehaviour {
 
+
+    [SerializeField] private int targetDataSaves;
+    [SerializeField] private TMP_Text textTargetDatasabes;
+    private int currentDataSaves = 0;
     private Data dataPlace;
+
+
+    private void Start() {
+        textTargetDatasabes.text = ($"{currentDataSaves}/{targetDataSaves}");
+    }
 
     private void Update() {
         if (Input.GetButtonDown("Interaction")) {
             if (dataPlace != null) {
                 dataPlace.DeactivateDataPoint();
+                textTargetDatasabes.text = ($"{++currentDataSaves}/{targetDataSaves}");
                 GetComponent<PlayerRespawn>().ActivateCheckpoint(dataPlace.gameObject.transform);
             }
                 

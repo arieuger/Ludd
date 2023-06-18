@@ -5,12 +5,12 @@ using UnityEngine;
 public class Health : MonoBehaviour {
 
     [Header ("Health")]
-    [SerializeField] private float startingHealth;
+    public float startingHealth;
     [SerializeField] private List<EnemyPatrol> enemies;
     [SerializeField] private List<DissapearingPlatform> dissapearingPlatforms;
     public float currentHealth { get; private set; }
     private Animator anim;
-    private bool dead;
+    [HideInInspector] public bool dead;
 
     [Header("Invulnerability")]
     [SerializeField] private float invulnerabilityTime;
@@ -60,6 +60,8 @@ public class Health : MonoBehaviour {
         foreach (EnemyPatrol enemy in enemies) {
             enemy.gameObject.SetActive(true);
             enemy.GetComponentInChildren<EnemyAttack>().enabled = true;
+            enemy.GetComponentInChildren<Health>().dead = false;
+            enemy.GetComponentInChildren<Health>().AddHealth(startingHealth);
         }
 
         foreach (DissapearingPlatform platform in dissapearingPlatforms) {
