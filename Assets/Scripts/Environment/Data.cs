@@ -15,9 +15,11 @@ public class Data : MonoBehaviour {
     }
 
     public void DeactivateDataPoint() {
-        animator.SetTrigger("Down");
-        maxIntensity = light2D.intensity;
-        StartCoroutine(Twinkle());
+        if (light2D.enabled) {
+            animator.SetTrigger("Down");
+            maxIntensity = light2D.intensity;
+            StartCoroutine(Twinkle());
+        }
     }
 
         private IEnumerator Twinkle() {

@@ -25,6 +25,7 @@ public class Health : MonoBehaviour {
             StartCoroutine(Invunerability());
         }
         else if (!dead) {
+            currentHealth = 0;
             anim.SetTrigger("die");
 
             if (GetComponent<PlayerMovement>() != null)
@@ -40,6 +41,16 @@ public class Health : MonoBehaviour {
     }
     public void AddHealth(float value) {
         currentHealth = Mathf.Clamp(currentHealth + value, 0, startingHealth);
+    }
+
+    public void Respawn() {
+        AddHealth(startingHealth);
+        anim.ResetTrigger("die");
+        anim.Play("Idle");
+        StartCoroutine(Invunerability());
+
+        GetComponent<PlayerMovement>().enabled = true;
+        dead = false;
     }
 
     private IEnumerator Invunerability() {

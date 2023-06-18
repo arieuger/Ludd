@@ -6,8 +6,11 @@ public class PlayerInteraction : MonoBehaviour {
 
     private void Update() {
         if (Input.GetButtonDown("Interaction")) {
-            if (dataPlace != null)
+            if (dataPlace != null) {
                 dataPlace.DeactivateDataPoint();
+                GetComponent<PlayerRespawn>().ActivateCheckpoint(dataPlace.gameObject.transform);
+            }
+                
         }
     }
 
