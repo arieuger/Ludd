@@ -22,4 +22,10 @@ public class PlayerInteraction : MonoBehaviour {
             dataPlace = null;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("DisappearingPlatform")) {
+            StartCoroutine(other.gameObject.GetComponentInParent<DissapearingPlatform>().Dissapear());
+        }
+    }
 }

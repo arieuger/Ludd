@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DataPlace
   - Enemy
+  - DisappearingPlatform
   layers:
   - Default
   - TransparentFX
