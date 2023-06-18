@@ -652,8 +652,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: "Ludd \xE9 moi sensible, a pesar de ser unha IA. Sen embargo, un grupo
-    de activistas pola privacidade da rede infiltr\xE1ronse no centro de datos de
-    usuarios e Ludd deber\xE1 impedir que os destr\xFAan."
+    de activistas pola privacidade na rede infiltr\xE1ronse no centro de datos de
+    usuarios e ord\xE9anlle impedir que os destr\xFAan."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e9510d4fa3e3c9aaaa0647ec32e4291, type: 2}
   m_sharedMaterial: {fileID: 7641521693265398388, guid: 1e9510d4fa3e3c9aaaa0647ec32e4291, type: 2}
