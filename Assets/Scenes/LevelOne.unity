@@ -58378,12 +58378,12 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
+  m_TextStyleHashCode: 2425
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 23.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -109472,8 +109472,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Atacar desperta a conciencia de Ludd e fai que, a veces, non siga as tuas
-    ordes. Cando ocorre isto a sua luz e vermella
+  m_text: "Atacar desperta a conciencia de Ludd e fai que, a veces, non siga as t\xFAas
+    ordes. Cando ocorre isto a s\xFAa luz \xE9 vermella"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1e9510d4fa3e3c9aaaa0647ec32e4291, type: 2}
   m_sharedMaterial: {fileID: 7641521693265398388, guid: 1e9510d4fa3e3c9aaaa0647ec32e4291, type: 2}
