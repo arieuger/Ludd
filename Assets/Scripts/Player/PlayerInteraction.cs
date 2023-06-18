@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerInteraction : MonoBehaviour {
 
@@ -17,9 +18,12 @@ public class PlayerInteraction : MonoBehaviour {
     private void Update() {
         if (Input.GetButtonDown("Interaction")) {
             if (dataPlace != null) {
-                dataPlace.DeactivateDataPoint();
-                textTargetDatasabes.text = ($"{++currentDataSaves}/{targetDataSaves}");
-                GetComponent<PlayerRespawn>().ActivateCheckpoint(dataPlace.gameObject.transform);
+                if (dataPlace.GetComponentInChildren<Light2D>().enabled) {
+                    dataPlace.DeactivateDataPoint();
+                    textTargetDatasabes.text = ($"{++currentDataSaves}/{targetDataSaves}");
+                    GetComponent<PlayerRespawn>().ActivateCheckpoint(dataPlace.gameObject.transform);
+                }
+                
             }
                 
         }
