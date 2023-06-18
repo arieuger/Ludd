@@ -27,7 +27,7 @@ public class PlayerInteraction : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.CompareTag("DisappearingPlatform")) {
+        if (other.gameObject.CompareTag("DisappearingPlatform") && other.gameObject.activeSelf) {
             StartCoroutine(other.gameObject.GetComponentInParent<DissapearingPlatform>().Dissapear());
         }
     }

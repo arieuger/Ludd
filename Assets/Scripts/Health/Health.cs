@@ -1,10 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Health : MonoBehaviour {
 
     [Header ("Health")]
     [SerializeField] private float startingHealth;
+    [SerializeField] private List<EnemyPatrol> enemies;
+    [SerializeField] private List<DissapearingPlatform> dissapearingPlatforms;
     public float currentHealth { get; private set; }
     private Animator anim;
     private bool dead;
@@ -33,7 +36,6 @@ public class Health : MonoBehaviour {
 
             if (GetComponent<EnemyAttack>() != null) {
                 GetComponent<EnemyAttack>().enabled = false;
-                GetComponentInParent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             }                
             
             dead = true;
@@ -50,7 +52,19 @@ public class Health : MonoBehaviour {
         StartCoroutine(Invunerability());
 
         GetComponent<PlayerMovement>().enabled = true;
+        RespawnEnemies();
         dead = false;
+    }
+
+    private void RespawnEnemies() {
+        foreach (EnemyPatrol enemy in enemies) {
+            enemy.gameObject.SetActive(true);
+            enemy.GetComponentInChildren<EnemyAttack>().enabled = true;
+        }
+
+        foreach (DissapearingPlatform platform in dissapearingPlatforms) {
+            platform.gameObject.SetActive(true);
+        }
     }
 
     private IEnumerator Invunerability() {

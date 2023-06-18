@@ -20,8 +20,7 @@ public class PlayerCombat : MonoBehaviour {
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
-            bool conscienceAllowsMovement = Random.value > conscience.currentConscience / 10;
-            if (conscienceAllowsMovement)
+            if (conscience.conscienceAllowsMovement)
                 animator.SetTrigger("attack");
             else
                 Debug.Log("Ataque anulado");

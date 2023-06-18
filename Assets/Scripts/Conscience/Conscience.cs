@@ -8,17 +8,27 @@ public class Conscience : MonoBehaviour {
     [SerializeField] private float recoverTimeByPoint;
 
     public float currentConscience { get; private set; }
+    public bool conscienceAllowsMovement { get; private set; }
 
     private bool isRecovering = false;
 
+    private Material mat;
+    private Color starterLightColor;
+
     private void Start() {
+        mat = GetComponent<SpriteRenderer>().material;
+        starterLightColor = mat.GetColor("_GlowColor");
         currentConscience = 0f;
+        conscienceAllowsMovement = true;
+        StartCoroutine(CheckConscience());
     }
 
     public void AddConscience(float quantity) {
-        currentConscience += quantity;
-        if (!isRecovering)
-            StartCoroutine(RecoverInconscience());
+        if (currentConscience + quantity <= totalConscience) {
+            currentConscience += quantity;
+            if (!isRecovering)
+                StartCoroutine(RecoverInconscience());
+        }
     }
 
     private IEnumerator RecoverInconscience() {
@@ -34,5 +44,18 @@ public class Conscience : MonoBehaviour {
             currentConscience = 0f;
         
         isRecovering = false;
+    }
+
+    private IEnumerator CheckConscience() {
+        while (true) {
+            conscienceAllowsMovement = Random.value + 0.1f > currentConscience / 10;
+            if (!conscienceAllowsMovement)
+                mat.SetColor("_GlowColor", Color.red * 4);
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
+            
+            conscienceAllowsMovement = true;
+            mat.SetColor("_GlowColor", starterLightColor);
+            yield return new WaitForSeconds(Random.Range(1f, 2f));
+        }
     }
 }

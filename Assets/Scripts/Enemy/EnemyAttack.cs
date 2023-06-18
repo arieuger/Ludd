@@ -62,7 +62,7 @@ public class EnemyAttack : MonoBehaviour {
     }
 
     private void DestroyOnDead() {
-        Destroy(gameObject.GetComponentInParent<EnemyPatrol>().gameObject);
+        gameObject.GetComponentInParent<EnemyPatrol>().gameObject.SetActive(false);
     }
 
     private void OnDrawGizmos() {

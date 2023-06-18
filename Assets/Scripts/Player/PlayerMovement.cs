@@ -64,9 +64,6 @@ public class PlayerMovement : MonoBehaviour {
 
     // Conciencia
     private Conscience conscience;
-    private bool conscienceAllowsMovement = true;
-    private Material mat;
-    private Color starterLightColor;
 
 
     void Start() {
@@ -76,14 +73,11 @@ public class PlayerMovement : MonoBehaviour {
         footEmission = footstepsEffect.emission;
         initialFootEmissionROT = footEmission.rateOverTime;
         defaultGravityScale = rb.gravityScale;
-        mat = GetComponent<SpriteRenderer>().material;
-        starterLightColor = mat.GetColor("_GlowColor");
         conscience = GetComponent<Conscience>();
-        StartCoroutine(CheckConscience());
     }
 
     void Update() {
-        horizontalMovement = Input.GetAxis("Horizontal") * movementSpeed * (isRunning ? 1.5f : 1f) * (conscienceAllowsMovement ? 1f : 0);
+        horizontalMovement = Input.GetAxis("Horizontal") * movementSpeed * (isRunning ? 1.5f : 1f) * (conscience.conscienceAllowsMovement ? 1f : 0);
         if (Input.GetButtonDown("Jump")) jump = true;
         UpdateAnimations();
     }
@@ -95,7 +89,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void Move(float moving) {
-        if (conscienceAllowsMovement) {
+        if (conscience.conscienceAllowsMovement) {
             Vector3 targetVelocity = new Vector2(moving, rb.velocity.y);
             rb.velocity = smoothActivated ? Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, movementSmooth) : targetVelocity;
 
@@ -155,19 +149,6 @@ public class PlayerMovement : MonoBehaviour {
         } else {
             rb.gravityScale = defaultGravityScale;
             vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y = Mathf.Abs(vCam.GetComponentInChildren<CinemachineFramingTransposer>().m_TrackedObjectOffset.y);
-        }
-    }
-
-    private IEnumerator CheckConscience() {
-        while (true) {
-            conscienceAllowsMovement = Random.value + 0.1f > conscience.currentConscience / 10;
-            if (!conscienceAllowsMovement)
-                mat.SetColor("_GlowColor", Color.red * 4);
-            yield return new WaitForSeconds(Random.Range(1f, 2f));
-            
-            conscienceAllowsMovement = true;
-            mat.SetColor("_GlowColor", starterLightColor);
-            yield return new WaitForSeconds(Random.Range(1f, 2f));
         }
     }
 
