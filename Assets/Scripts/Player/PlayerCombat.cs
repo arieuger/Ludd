@@ -20,10 +20,8 @@ public class PlayerCombat : MonoBehaviour {
 
     void Update() {
         if (Input.GetButtonDown("Fire1")) {
-            if (conscience.conscienceAllowsMovement)
+            if (conscience.conscienceAllowsMovement && !GetComponent<Health>().dead)
                 animator.SetTrigger("attack");
-            else
-                Debug.Log("Ataque anulado");
         }
     }
 
