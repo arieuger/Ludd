@@ -28,6 +28,7 @@ public class Health : MonoBehaviour {
             StartCoroutine(Invunerability());
         }
         else if (!dead) {
+            if (gameObject.CompareTag("Player")) ResetAllTriggers();
             currentHealth = 0;
             anim.SetTrigger("die");
 
@@ -74,5 +75,13 @@ public class Health : MonoBehaviour {
         yield return new WaitForSeconds(invulnerabilityTime);
         Physics2D.IgnoreLayerCollision(7,8, false);
     }
+
+    private void ResetAllTriggers() {
+        foreach (var param in anim.parameters) {
+            if (param.type == AnimatorControllerParameterType.Trigger) {
+                anim.ResetTrigger(param.name);
+            }
+        }
+    } 
 
 }
