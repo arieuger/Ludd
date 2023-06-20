@@ -20,7 +20,7 @@ public class Heart : MonoBehaviour {
     }
 
     private void LightAchieved() {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

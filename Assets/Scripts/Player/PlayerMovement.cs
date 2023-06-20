@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour {
         jump = false;
     }
 
-    private void Turn() {
+    public void Turn() {
         lookingRight = !lookingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;

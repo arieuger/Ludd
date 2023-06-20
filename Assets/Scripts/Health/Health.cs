@@ -48,12 +48,14 @@ public class Health : MonoBehaviour {
 
     public void Respawn() {
         AddHealth(startingHealth);
+        GetComponent<Conscience>().RestoreInconscience();
         anim.ResetTrigger("die");
         anim.Play("Idle");
         StartCoroutine(Invunerability());
 
         GetComponent<PlayerMovement>().enabled = true;
         RespawnEnemies();
+        RespawnHearts();
         dead = false;
     }
 
@@ -67,6 +69,12 @@ public class Health : MonoBehaviour {
 
         foreach (DissapearingPlatform platform in dissapearingPlatforms) {
             platform.gameObject.SetActive(true);
+        }
+    }
+
+    private void RespawnHearts() {
+        foreach (Heart heart in FindObjectsOfType<Heart>(true)) {
+            heart.gameObject.SetActive(true);
         }
     }
 

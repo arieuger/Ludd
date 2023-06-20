@@ -31,6 +31,11 @@ public class Conscience : MonoBehaviour {
         }
     }
 
+    public void RestoreInconscience() {
+        currentConscience = 0f;
+        StopCoroutine(RecoverInconscience());
+    }
+
     private IEnumerator RecoverInconscience() {
         isRecovering = true;
         

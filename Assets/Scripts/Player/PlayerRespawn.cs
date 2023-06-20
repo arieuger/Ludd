@@ -15,6 +15,8 @@ public class PlayerRespawn : MonoBehaviour {
 
     public void RespawnPlayer() {
         transform.position = currentCheckpoint.position;
+        if (transform.localScale != currentCheckpoint.localScale)
+            GetComponent<PlayerMovement>().Turn();
         playerHealth.Respawn();
     }
 
