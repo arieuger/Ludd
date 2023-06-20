@@ -278,8 +278,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0057500005, y: -0.0036000013, z: 0}
-    m_Extent: {x: 1.29375, y: 1.2886, z: 0}
+    m_Center: {x: 0.001949966, y: 0.004349947, z: 0}
+    m_Extent: {x: 1.2902501, y: 1.29055, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -58535,8 +58535,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -834599961
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -58546,7 +58546,7 @@ SpriteRenderer:
   m_Size: {x: 1.1666666, y: 1.7083334}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &754347466
@@ -58612,10 +58612,10 @@ BoxCollider2D:
   m_Offset: {x: 1.0357304, y: 1.8337517}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1666666, y: 1.7083334}
+    newSize: {x: 1.1666666, y: 1.7083334}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
@@ -59220,8 +59220,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.000100016594, y: 0.0038999915, z: 0}
-    m_Extent: {x: 1.2831, y: 1.2907, z: 0}
+    m_Center: {x: -0.0009999871, y: 0.0047500134, z: 0}
+    m_Extent: {x: 1.2953999, y: 1.29175, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -110524,8 +110524,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: 0.0012500286, y: -0.00019997358, z: 0}
-    m_Extent: {x: 1.28975, y: 1.2925999, z: 0}
+    m_Center: {x: -0.0012500286, y: -0.0054500103, z: 0}
+    m_Extent: {x: 1.29505, y: 1.29155, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
