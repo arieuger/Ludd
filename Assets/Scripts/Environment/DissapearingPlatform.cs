@@ -18,7 +18,7 @@ public class DissapearingPlatform : MonoBehaviour {
     public IEnumerator Dissapear() {
         for (int i = 0; i < Random.Range(3,6); i++) {
             foreach (SpriteRenderer render in renders) {
-                if (render != null) {
+                if (render != null && !render.gameObject.CompareTag("Player")) {
                     render.color = Color.grey;
                     render.enabled = false;
                     yield return new WaitForSeconds(Random.Range(0.01f, 0.05f));
@@ -32,8 +32,12 @@ public class DissapearingPlatform : MonoBehaviour {
         
         foreach (SpriteRenderer render in renders) {
            // render.enabled = false;
-            if (render != null && render.GetComponentInParent<DissapearingPlatform>() != null) 
+            if (render != null && render.GetComponentInParent<DissapearingPlatform>() != null) {
+                if (render.GetComponentInChildren<PlayerMovement>() != null) {
+                    render.GetComponentInChildren<PlayerMovement>().gameObject.transform.parent = null;
+                }
                 render.GetComponentInParent<DissapearingPlatform>().gameObject.SetActive(false);
+            }
         }
         // platformCollider.enabled = false;
     }

@@ -39,6 +39,7 @@ public class PlayerCombat : MonoBehaviour {
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
+    // TODO: Fix Combat
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Enemy") && !damageToken) {
             GetComponent<Health>().TakeDamage(1f);
